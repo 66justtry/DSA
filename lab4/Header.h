@@ -86,7 +86,37 @@ void RadixSort(int* arr, int n, int nums) {
 	delete[] count;
 }
 
+void Heapify(int* arr, int n, int cur) {
+	if (cur * 2 + 1 < n) {
+		if (arr[cur] < arr[cur * 2 + 1]) {
+			swap(arr[cur], arr[cur * 2 + 1]);
+			Heapify(arr, n, (cur * 2 + 1));
+		}
+	}
+	if (cur * 2 + 2 < n) {
+		if (arr[cur] < arr[cur * 2 + 2]) {
+			swap(arr[cur], arr[cur * 2 + 2]);
+			Heapify(arr, n, (cur * 2 + 2));
+		}
+	}
+}
+
 
 void HeapSort(int* arr, int n) {
-	int x = round(4.7);
+	//int x = round(4.7);
+
+	int cur = ceil(n / 2) - 1; //номер текущего элемента, последний НЕ лист
+
+	for (; cur >= 0; cur--) {
+		Heapify(arr, n, cur);
+	}
+	//получили max heap
+
+	for (int i = n - 1; i > 0; i--) {
+		swap(arr[0], arr[i]);
+		Heapify(arr, i, 0);
+	}
+
+
 }
+
